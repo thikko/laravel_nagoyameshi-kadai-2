@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\TermController;
 
+use App\Http\Controllers\HomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,8 +21,9 @@ use App\Http\Controllers\Admin\TermController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// 管理者としてログインしていない状態でのみアクセス可能にするルーティング
+Route::group(['middleware' => 'guest:admin'], function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
 });
 
 
