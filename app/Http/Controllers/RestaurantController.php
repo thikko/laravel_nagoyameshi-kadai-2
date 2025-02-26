@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Restaurant;
 use App\Models\Category;
+use App\Models\Review;
+use App\Models\Reservation;
 
 class RestaurantController extends Controller
 {
@@ -20,7 +22,7 @@ class RestaurantController extends Controller
             '価格が安い順' => 'lowest_price asc',
             '価格が高い順' => 'lowest_price desc',
             '評価が高い順' => 'rating desc',
-            '評価が低い順' => 'rating asc',
+            '予約が多い順' => 'reservations_count desc',
         ];
         $categories = Category::all();
 

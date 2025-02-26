@@ -12,6 +12,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController as UserUserController;
 use App\Http\Controllers\RestaurantController as UserRestaurantController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ReservationController;
 
 use App\Http\Middleware\Subscribed;
 use App\Http\Middleware\NotSubscribed;
@@ -48,6 +49,10 @@ Route::group(['middleware' => 'guest:admin'], function () {
             Route::get('subscription/cancel', [SubscriptionController::class, 'cancel'])->name('subscription.cancel');
             Route::delete('subscription', [SubscriptionController::class, 'destroy'])->name('subscription.destroy');
             Route::resource('restaurants.reviews', ReviewController::class)->only(['create', 'store', 'edit', 'update', 'destroy']);
+            Route::get('reservations', [ReservationController::class, 'index'])->name('reservations.index');
+            Route::get('restaurants/{restaurant}/reservations/create', [ReservationController::class, 'create'])->name('restaurants.reservations.create');
+            Route::post('restaurants/{restaurant}/reservations', [ReservationController::class, 'store'])->name('restaurants.reservations.store');
+            Route::delete('reservations/{reservation}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
         });
     }); 
 });
