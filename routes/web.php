@@ -14,6 +14,8 @@ use App\Http\Controllers\RestaurantController as UserRestaurantController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\CompanyController as UserCompanyController;
+use App\Http\Controllers\TermController as UserTermController;
 
 use App\Http\Middleware\Subscribed;
 use App\Http\Middleware\NotSubscribed;
@@ -33,6 +35,8 @@ use App\Http\Controllers\SubscriptionController;
 Route::group(['middleware' => 'guest:admin'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::resource('restaurants', UserRestaurantController::class)->only(['index', 'show']);
+    Route::get('company', [UserCompanyController::class, 'index'])->name('company.index');
+    Route::get('terms', [UserTermController::class, 'index'])->name('terms.index');
     // ユーザーのルーティング
     Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('user',UserController::class)->only(['index', 'edit', 'update']);
